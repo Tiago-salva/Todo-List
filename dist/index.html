@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+
+    <header class="header">
+        <h1 class="header-title">To-Do List</h1>
+    </header>
+
+    <div class="sidebar">
+        <h2>To-Do</h2>
+        <h2>Projects</h2>
+        <h2>Notes</h2>
+
+        <button id="create-btn">+</button>
+    </div>
+
+    <div class="todo-container">
+        <div class="todo">
+            <button class="todo-status-checkbox"></button>
+            <h3 class="todo-title">Homework</h3>
+            <button class="todo-detail-button">Details</button>
+            <button class="todo-edit-button"></button>
+            <button class="todo-delete-button"></button>
+        </div>
+    </div>
+
+    <div class="overlay-new">
+        <form class="create-new" method="get">
+            <div class="create-new__header">
+                <h2 class="create-new__header-title">Create a new...</h2>
+                <button type="button" id="create-new__header-close">X</button>
+            </div>
+            <div class="create-new__content">
+                <div class="create-new__sidebar">
+                    <ul>
+                        <li class="create-new__sidebar-title"><h3>To-Do</h3></li>
+                        <li class="create-new__sidebar-title"><h3>Projects</h3></li>
+                        <li class="create-new__sidebar-title"><h3>Notes</h3></li>
+                    </ul>
+                </div>
+                <div class="create-new__entry">
+                    <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="30" name="title" required>
+                    <textarea class="create-new__entry-input-big input" placeholder="Description" name="description" required></textarea>
+                    <div class="create-new__date">
+                        <span class="create-new__date-title">Due Date:</span>
+                        <input type="date" class="create-new__date-input input" name="dueDate" required>
+                    </div>
+                    <div class="create-new__priority">
+                        <span class="create-new__priority-title">Priority:</span>
+                        <div class="create-new__priority-btns">
+                            <input type="radio" name="priority" class="priority-btn input" id="low" value="Low" required>
+                            <label for="low">Low</label>
+                            <input type="radio" name="priority" class="priority-btn input" id="medium" value="Medium" required>
+                            <label for="medium">Medium</label>
+                            <input type="radio" name="priority" class="priority-btn input" id="high" value="High" required>
+                            <label for="high">High</label>
+                        </div>
+                    </div>
+                    <button class="add-btn" type="submit">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="overlay-details">
+        <div class="pop-up-details">
+            <button class="pop-up-close-button">X</button>
+            <h1 class="pop-up-title element"></h1>
+            <p class="pop-up-project element"></p>
+            <p class="pop-up-description element"></p>
+            <p class="pop-up-duedate element"></p>
+            <p class="pop-up-priority element"></p>
+        </div>
+    </div>
+
+    <div class="overlay-edit">
+        <form class="edit-todo" method="get">
+            <button class="edit-todo-close-button" type="button">X</button>
+            <input type="text" class="edit-todo-input input" placeholder="Name" maxlength="30" name="title" required>
+            <textarea class="edit-todo-input-big input" placeholder="Description" name="description" required></textarea>
+            <div class="edit-todo__date">
+                <span class="edit-todo__date-title">Due Date:</span>
+                <input type="date" class="edit-todo__date-input input" name="dueDate" required>
+            </div>
+            <div class="edit-todo__priority">
+                <span class="edit-todo__priority-title">Priority:</span>
+                <div class="edit-todo__priority-btns">
+                    <input type="radio" name="priority" class="priority-btn input" id="low" value="Low" required>
+                    <label for="low">Low</label>
+                    <input type="radio" name="priority" class="priority-btn input" id="medium" value="Medium" required>
+                    <label for="medium">Medium</label>
+                    <input type="radio" name="priority" class="priority-btn input" id="high" value="High" required>
+                    <label for="high">High</label>
+                </div>
+            </div>
+            <button class="confirm-edit-btn" type="submit">Edit</button>
+        </form>
+    </div>
+</body>
+</html>
