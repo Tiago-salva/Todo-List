@@ -12,9 +12,19 @@
     </header>
 
     <div class="sidebar">
-        <h2>To-Do</h2>
-        <h2>Projects</h2>
-        <h2>Notes</h2>
+        <ul class="nav">
+
+            <li class="project project-selected nav-item" data-index="0">
+                <span>Home</span>
+            </li>
+            <li class="nav-item">
+                <span>Projects</span>
+                <ul class="projects">
+                    <li class="project"> <span class="project-title">Homework</span> </li>
+                </ul>
+            </li>
+
+        </ul>
 
         <button id="create-btn">+</button>
     </div>
@@ -37,12 +47,11 @@
             </div>
             <div class="create-new__content">
                 <div class="create-new__sidebar">
-                    <ul>
-                        <li class="create-new__sidebar-title"><h3>To-Do</h3></li>
-                        <li class="create-new__sidebar-title"><h3>Projects</h3></li>
-                        <li class="create-new__sidebar-title"><h3>Notes</h3></li>
-                    </ul>
+                    <h3 class="create-new__sidebar-title create-new__sidebar-title-selected" id="option-to-do">To-Do</h3>
+                    <h3 class="create-new__sidebar-title" id="option-project">Project</h3>
+                    <!-- <h3 class="create-new__sidebar-title">Notes</h3> -->
                 </div>
+
                 <div class="create-new__entry">
                     <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="30" name="title" required>
                     <textarea class="create-new__entry-input-big input" placeholder="Description" name="description" required></textarea>
@@ -61,7 +70,7 @@
                             <label for="high">High</label>
                         </div>
                     </div>
-                    <button class="add-btn" type="submit">Add</button>
+                    <button class="add-btn" type="submit">Add todo</button>
                 </div>
             </div>
         </form>

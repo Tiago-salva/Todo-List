@@ -31,24 +31,44 @@ export const todoModule = {
     }
 };
 
+class Project {
+    constructor(title, projectId) {
+        this.title = title;
+        this.projectId = projectId;
+    }
+};
+
+export const projectModule = {
+    projects: [],
+
+    addProject: function(project) {
+        this.projects.push(project)
+    },
+
+    removeProject: function(index) {
+        this.projects.splice(index, 1);
+    }
+};
+
 export const todoCreationModule = {
-    createTodoFromForm: () => {
+    createFromForm: () => {
         const createForm = document.querySelector('.create-new');
         const formData = new FormData(createForm);
-        const newTodo = new Todo(formData.get('title'), formData.get('description'), formData.get('dueDate'), formData.get('priority'), "not-checked");
-        todoModule.addTodo(newTodo);
+
+        const selectedOption = document.querySelector(".create-new__sidebar-title-selected");
+        if(selectedOption.textContent === "To-Do") {
+            const newTodo = new Todo(formData.get('title'), formData.get('description'), formData.get('dueDate'), formData.get('priority'), "not-checked");
+            todoModule.addTodo(newTodo);
+        } else {
+            const newProject = new Project(formData.get('title'));
+            projectModule.addProject(newProject);
+        }
+
         createForm.reset();
     }
 };
 
 export const eventModule = {
-    removeAddEventListener: (elements, event, handler) => {
-        elements.forEach((element) => {
-          element.removeEventListener(event, handler);
-          element.addEventListener(event, handler);
-        });
-    },
-
     assisgnEventsToButtons: () => {
         const allStatusCheckbox = document.querySelectorAll(".todo-status-checkbox");
         const allDetailsBtns = document.querySelectorAll(".todo-detail-button");
@@ -59,6 +79,13 @@ export const eventModule = {
         eventModule.removeAddEventListener(allDetailsBtns, "click", eventModule.handleDetail);
         eventModule.removeAddEventListener(allEditBtns, "click", eventModule.displayOverlayEdit);
         eventModule.removeAddEventListener(allDeleteBtns, "click", eventModule.handleDelete);
+    },
+
+    removeAddEventListener: (elements, event, handler) => {
+        elements.forEach((element) => {
+          element.removeEventListener(event, handler);
+          element.addEventListener(event, handler);
+        });
     },
 
     // EventListener for the todo status checkbox

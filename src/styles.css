@@ -7,7 +7,7 @@
 body {
     height: 100vh;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 25% 75%;
     grid-template-rows: 1fr 7fr;
     grid-template-areas: 
     "header header"
@@ -31,12 +31,13 @@ input[type="radio"] {
     /* opacity: 0; */
 }
 
-button[type="submit"] {
+button[type="submit"]:not(.create-project-btn) {
     height: 25px;
     width: 100px;
     position: absolute;
     bottom: 20px;
     right: 20px;
+    cursor: pointer;
 }
 
 label {
@@ -63,12 +64,47 @@ form {
 .sidebar {
     grid-area: sidebar;
     width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: darkseagreen;
+}
+
+.nav {
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 15px;
+}
+
+.projects {
+    list-style: none;
+    margin: 15px 0 0 20px;
+    font-size: 1.2rem;
+}
+
+.project {
+    cursor: pointer;
+}
+
+.project-selected::before {
+    content: "//";
+    font-size: 1.4rem;
+    margin-right: 5px;
 }
 
 #create-btn {
-    width: 50px;
-    height: 20px;
+    width: 70px;
+    height: 40px;
     cursor: pointer;
+    margin-top: auto;
+    border-radius: 20px;
+    border: none;
+    background-color: aquamarine;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
 .todo-container {
@@ -194,10 +230,21 @@ form {
 .create-new__sidebar {
     width: 25%;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    font-size: 1.2rem;
 }
 
-.create-new__sidebar > ul {
-    list-style: none;
+.create-new__sidebar > h3 {
+    cursor: pointer;
+}
+
+.create-new__sidebar-title-selected::before {
+    content: "//";
+    font-size: 1.5rem;
+    margin-right: 10px;
 }
 
 .create-new__entry {
@@ -211,6 +258,13 @@ form {
 
 .create-new__entry-input {
     height: 40px;
+}
+
+.create-project-btn {
+    height: 25px;
+    width: 100px;
+    margin-top: auto;
+    cursor: pointer;
 }
 
 .create-new__entry-input-big {
