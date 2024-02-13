@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;500;700&display=swap');
+
+:root {
+    --white: #ffffff;
+    --grey: #EEF5FF;
+    --blue: #b4d4ff;
+    --blue-dark: #86B6F6;
+    --blue-darker: #0091D9;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -14,6 +25,7 @@ body {
     "sidebar main";
 }
 
+/* Universal */
 input[type="text"],
 textarea {
     border: none;
@@ -24,114 +36,191 @@ textarea {
 input[type="radio"] {
     position: relative;
     left: 2.2rem;
-    /* height: 1px;
-    width: 1px; */
     padding: 0;
     margin: 0;
-    /* opacity: 0; */
+    height: 1px;
+    width: 1px;
+    opacity: 0;
+    
 }
 
-button[type="submit"]:not(.create-project-btn) {
-    height: 25px;
-    width: 100px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
+input[type="radio"]:checked + label {
+    background-color: var(--blue-darker);
 }
 
 label {
     width: 70px;
     height: 25px;
-    background-color: aqua;
+    background-color: var(--blue-dark);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:not(.create-project-btn) {
+    height: 25px;
+    width: 70px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; 
+    background-color: var(--grey);
 }
 
 form {
-    background-color: rgb(255, 226, 226);
+    background-color: var(--blue);
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
+/* Header */
 .header {
     grid-area: header;
     width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    gap: 20px;
+    background-color: var(--blue-dark);
+    color: white;
 }
 
+.header-logo {
+    width: 50px;
+    height: 50px;
+    background-image: url("svg/circle-check-regular.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--white);
+}
+
+/* Sidebar */
 .sidebar {
     grid-area: sidebar;
     width: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    background-color: darkseagreen;
+    background-color: var(--blue);
 }
 
 .nav {
-    font-size: 1.5rem;
     list-style: none;
 }
 
+#home-item {
+    font-size: 1.2rem;
+}
+
 .nav-item {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    width: auto;
+    letter-spacing: 1px;
+}
+
+.project-title {
+    font-size: 1.5rem;
 }
 
 .projects {
     list-style: none;
-    margin: 15px 0 0 20px;
-    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
 .project {
     cursor: pointer;
+    transition: background-color 0.1s ease-in;
 }
 
-.project-selected::before {
-    content: "//";
-    font-size: 1.4rem;
-    margin-right: 5px;
-}
-
-#create-btn {
-    width: 70px;
-    height: 40px;
-    cursor: pointer;
-    margin-top: auto;
-    border-radius: 20px;
-    border: none;
-    background-color: aquamarine;
-    font-size: 1.8rem;
+.project-selected {
+    background-color: var(--blue-darker);
+    color: var(--white);
+    border-radius: 5px;
     font-weight: 700;
 }
 
+#create-btn {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-top: auto;
+    border-radius: 50px;
+    border: none;
+    background-color: var(--blue-dark);
+    font-size: 2rem;
+}
+
+/* Todo's container */
 .todo-container {
     display: flex;
     flex-direction: column;
     padding: 40px;
     gap: 20px;
-    background-color: aquamarine;
+    background-color: var(--grey);
     grid-area: main;
     width: 100%;
     height: 100%;
 }
 
+.todo-container, .empty-project {
+    align-items: center;
+}
+
+.empty-project-title {
+    font-size: 2rem;
+}
+
+.empty-project-subtitle {
+    font-size: 1.1rem;
+}
+
+.empty-project-btn {
+    width: 150px;
+    height: 30px;
+    background-color: var(--blue-dark);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--grey);
+    letter-spacing: 1px;
+}
+
 .todo {
     position: relative;
-    background-color: rgb(206, 255, 127);
+    background-color: var(--blue);
     width: 100%;
     height: 50px;
     display: flex;
     align-items: center;
     padding: 5px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
+}
+
+.todo-checked {
+    filter: brightness(80%);
+}
+
+.todo-priority {
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    border-radius: 5px 0 0 5px;
 }
 
 .todo > .todo-status-checkbox {
     margin-right: 20px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--white);
+    border-radius: 5px;
 }
 
 .todo > .todo-status-checkbox-checked {
@@ -140,6 +229,8 @@ form {
 
 .todo > .todo-title {
     margin-right: auto;
+    font-size: 1rem;
+    letter-spacing: 1px;
 }
 
 .todo > .todo-title-checked {
@@ -151,6 +242,10 @@ form {
     height: 25px;
     margin-right: 25px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--blue-darker);
+    color: var(--white);
 }
 
 .todo > .todo-edit-button {
@@ -179,6 +274,7 @@ form {
     background-repeat: no-repeat;
 }
 
+/* Overlay to create new project or todo */
 .overlay-new {
     width: 100%;
     height: 100%;
@@ -188,27 +284,32 @@ form {
     position: absolute;
     justify-content: center;
     align-items: center;
-    background-color: rgba(206, 206, 206, 0.2);
-    backdrop-filter: blur(3px);
+    background-color: rgb(103 117 149 / 50%);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .overlay-new-displayed {
     visibility: visible;
     opacity: 1;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .create-new {
     height: 400px;
     width: 650px;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 0.9rem;
 }
 
 .create-new__header {
-    background-color: rgb(128, 255, 0);
+    background-color: var(--blue-dark);
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
 }
 
 #create-new__header-close {
@@ -222,35 +323,38 @@ form {
 }
 
 .create-new__content {
-    background-color: rgb(194, 226, 163);
     display: flex;
     height: 100%;
 }
 
 .create-new__sidebar {
+    background-color: var(--grey);
     width: 25%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     text-align: center;
-    font-size: 1.2rem;
 }
 
 .create-new__sidebar > h3 {
     cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: background-color 0.1s ease-in;
 }
 
-.create-new__sidebar-title-selected::before {
-    content: "//";
-    font-size: 1.5rem;
-    margin-right: 10px;
+.create-new__sidebar-title-selected {
+    background-color: var(--blue-darker);
+    color: var(--white);
+    border-radius: 5px;
+    font-weight: 700;
 }
 
 .create-new__entry {
     display: flex;
     flex-direction: column;
-    background-color: rgb(201, 166, 233);
+    background-color: var(--blue);
     width: 75%;
     padding: 20px;
     gap: 20px;
@@ -258,13 +362,6 @@ form {
 
 .create-new__entry-input {
     height: 40px;
-}
-
-.create-project-btn {
-    height: 25px;
-    width: 100px;
-    margin-top: auto;
-    cursor: pointer;
 }
 
 .create-new__entry-input-big {
@@ -279,6 +376,11 @@ form {
     padding: 5px;
 }
 
+.create-new__date {
+    display: flex;
+    gap: 15px;
+}
+
 .create-new__priority {
     display: flex;
     gap: 5px;
@@ -289,6 +391,17 @@ form {
     gap: 5px;
 }
 
+.create-project-btn {
+    height: 25px;
+    width: 120px;
+    margin-top: auto;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--grey);
+}
+
+/* Overlay that display the details of a todo */
 .overlay-details {
     width: 100%;
     height: 100%;
@@ -298,26 +411,29 @@ form {
     position: absolute;
     justify-content: center;
     align-items: center;
-    background-color: rgba(206, 206, 206, 0.2);
-    backdrop-filter: blur(3px);
+    background-color: rgb(103 117 149 / 50%);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .overlay-details-displayed {
     visibility: visible;
     opacity: 1;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .pop-up-details {
     min-width: 500px;
     max-width: 650px;
-    height: 210px;
-    background-color: antiquewhite;
+    height: 250px;
+    background-color: var(--blue);
     padding: 20px 30px;
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
     overflow: hidden;
+    border-radius: 5px;
 }
 
 .pop-up-close-button {
@@ -332,17 +448,25 @@ form {
     right: 20px;
 }
 
+.detail-element {
+    display: flex;
+    gap: 10px;
+}
+
 .pop-up-title {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    font-weight: 500;
     max-width: 550px;
     margin-bottom: auto;
 }
 
-.pop-up-details > p {
-    font-size: 1.1rem;
-    font-weight: lighter;
+.detail-element > p {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
+/* Overlay to edit a todo */
 .overlay-edit {
     width: 100%;
     height: 100%;
@@ -352,13 +476,15 @@ form {
     position: absolute;
     justify-content: center;
     align-items: center;
-    background-color: rgba(206, 206, 206, 0.2);
-    backdrop-filter: blur(3px);
+    background-color: rgb(103 117 149 / 50%);
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .overlay-edit-displayed {
     visibility: visible;
     opacity: 1;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .edit-todo {
@@ -366,6 +492,8 @@ form {
     height: 350px;
     gap: 20px;
     padding: 20px 30px;
+    border-radius: 5px;
+    font-size: 0.9rem;
 }
 
 .edit-todo-close-button {
@@ -377,8 +505,7 @@ form {
     font-weight: bold;
     cursor: pointer;
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 20px;
 }
 
 .edit-todo-input {
@@ -397,6 +524,11 @@ form {
     padding: 5px;
     width: calc(100% - 30px);
     
+}
+
+.edit-todo__date {
+    display: flex;
+    gap: 15px;
 }
 
 .edit-todo__priority,

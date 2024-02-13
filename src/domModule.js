@@ -1,3 +1,5 @@
+import { centralModule } from "./centralModule";
+
 export const domModule = {
 
     assignEventsToProjects: () => {
@@ -5,6 +7,7 @@ export const domModule = {
         domModule.removeAddEventListener(allProjects, "click", domModule.createEventToShowProjectSelected);
     },
 
+    // Function to remove and add a single event listener
     removeAddEventListener: (elements, event, handler) => {
         elements.forEach((element) => {
           element.removeEventListener(event, handler);
@@ -13,6 +16,7 @@ export const domModule = {
     },
 
     // It creates the event to show wich project is selected
+    // And display his tasks
     createEventToShowProjectSelected : (event) => {     
         const allProjects = document.querySelectorAll(".project");
   
@@ -21,7 +25,10 @@ export const domModule = {
         });
 
         event.currentTarget.classList.add("project-selected");
-        const index = event.currentTarget.dataset.index;
+
+        const projectTaskArraySelected = centralModule.projectModule.sortTodos();
+        domModule.displayTodos(projectTaskArraySelected);
+        centralModule.eventModule.assisgnEventsToButtons();
     },
 
     // It creates the event to change the form depending on what you want to create 
@@ -61,11 +68,11 @@ export const domModule = {
             <div class="create-new__priority">
                 <span class="create-new__priority-title">Priority:</span>
                 <div class="create-new__priority-btns">
-                    <input type="radio" name="priority" class="priority-btn input" id="low" value="Low" required>
+                    <input type="radio" name="priority" class="priority-btn input" id="low" value=0 required>
                     <label for="low">Low</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="medium" value="Medium" required>
+                    <input type="radio" name="priority" class="priority-btn input" id="medium" value=1 required>
                     <label for="medium">Medium</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="high" value="High" required>
+                    <input type="radio" name="priority" class="priority-btn input" id="high" value=2 required>
                     <label for="high">High</label>
                 </div>
             </div>
@@ -73,6 +80,7 @@ export const domModule = {
         };
     },
     
+    // It display the overlay to create a new todo or project
     displayOverlay: function() {
         const form = document.querySelector(".create-new");
         const overlayNew = document.querySelector(".overlay-new");
@@ -95,11 +103,64 @@ export const domModule = {
     displayTodos: function(array) {
         const todosContainer = document.querySelector(".todo-container");
         todosContainer.innerHTML = "";
+
+        // If the project that is selected it's empty, show a message and a button to delete it
+        const projectSelected = centralModule.projectModule.getProjectSelected();
+        const projectSelectedTitle = projectSelected.querySelector("span").textContent;
+
+        if(projectSelectedTitle !== "Home" && array.length === 0) {
+            todosContainer.classList.add("empty-project");
+
+            const title = document.createElement("h2");
+            title.textContent = "The project is empty!";
+            title.classList.add("empty-project-title");
+
+
+            const subTitle = document.createElement("p");
+            subTitle.textContent = "Delete it or create a to-do!";
+            subTitle.classList.add("empty-project-subtitle");
+
+            const deleteProjectBtn = document.createElement("button");
+            deleteProjectBtn.textContent = "Delete project";
+            deleteProjectBtn.classList.add("empty-project-btn");
+
+            todosContainer.appendChild(title);
+            todosContainer.appendChild(subTitle);
+            todosContainer.appendChild(deleteProjectBtn);
+            
+            const index = projectSelected.dataset.index;
+
+            deleteProjectBtn.removeEventListener("click", domModule.deleteProject);
+            deleteProjectBtn.addEventListener("click", domModule.deleteProject);
+
+            return
+        }
+
+        // Otherwise, create the elements for each todo
         array.forEach((obj, index) => {
             const todo = document.createElement("div");
             todo.classList.add("todo");
+
+            // Add the class when the todo it's checked 
+            if(obj.checkStatus === "checked") {
+                todo.classList.add("todo-checked");
+            }
+
             todosContainer.appendChild(todo);
-            
+
+            // Each priority have his respective color
+            const priorityColors = [
+                "#60b160",
+                "#ebeb02",
+                "#f75454"
+            ];
+
+            // Depending on the priority of the todo, change the color of it
+            const todoPriority = document.createElement("div");
+            todoPriority.classList.add("todo-priority");
+            todoPriority.style.backgroundColor = priorityColors[obj.priority];
+            todo.appendChild(todoPriority);
+
             // Todo Status
             const todoStatus = document.createElement("button");
             if(obj.checkStatus === "not-checked") {
@@ -146,19 +207,41 @@ export const domModule = {
         }); 
     },
 
+    // Delete the project, select the other ones and display their todos
+    deleteProject: function() {
+        const index = centralModule.projectModule.getProjectSelected().dataset.index;
+        centralModule.projectModule.removeProject(index);
+        domModule.displayProjects(centralModule.projectModule.projects);
+        domModule.assignEventsToProjects();
+        const newProjectTaskArraySelected = centralModule.projectModule.sortTodos();
+        domModule.displayTodos(newProjectTaskArraySelected);
+        centralModule.eventModule.assisgnEventsToButtons();
+    },
+
     displayProjects: function(array) {
+        const homeItem = document.getElementById("homeItem");
+        
         const listOfProjects = document.querySelector(".projects");
         listOfProjects.innerHTML = "";
         array.forEach((obj, index) => {
-            const project = document.createElement("li");
-            project.dataset.index = index + 1;
-            project.classList.add("project");
-            project.classList.add("nav-item");
-            listOfProjects.appendChild(project);
-            const projectName = document.createElement("span");
-            projectName.textContent = obj.title;
-            projectName.classList.add("project-name");
-            project.appendChild(projectName);
+            // If the project selected it's not the home item, display the rest of the projects
+            if(index !== 0) {
+                homeItem.classList.remove("project-selected");
+                
+                const project = document.createElement("li");
+                project.dataset.index = index;
+                project.classList.add("project", "nav-item", (index === array.length - 1) && "project-selected");
+
+                const projectName = document.createElement("span");
+                projectName.textContent = obj.title;
+                projectName.classList.add("project-name");
+
+                project.appendChild(projectName);
+                listOfProjects.appendChild(project);
+            } else {
+                homeItem.classList.add("project-selected");
+                homeItem.dataset.index = index;
+            }
         })
     },
 }
