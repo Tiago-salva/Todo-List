@@ -8,20 +8,19 @@
 <body>
 
     <header class="header">
+        <div class="header-logo"></div>
         <h1 class="header-title">To-Do List</h1>
     </header>
 
     <div class="sidebar">
         <ul class="nav">
 
-            <li class="project project-selected nav-item" data-index="0">
+            <li class="project project-selected nav-item" id="homeItem">
                 <span>Home</span>
             </li>
-            <li class="nav-item">
+            <li class="project-title">
                 <span>Projects</span>
-                <ul class="projects">
-                    <li class="project"> <span class="project-title">Homework</span> </li>
-                </ul>
+                <ul class="projects"></ul>
             </li>
 
         </ul>
@@ -31,6 +30,7 @@
 
     <div class="todo-container">
         <div class="todo">
+            <div class="todo-priority"></div>
             <button class="todo-status-checkbox"></button>
             <h3 class="todo-title">Homework</h3>
             <button class="todo-detail-button">Details</button>
@@ -49,11 +49,10 @@
                 <div class="create-new__sidebar">
                     <h3 class="create-new__sidebar-title create-new__sidebar-title-selected" id="option-to-do">To-Do</h3>
                     <h3 class="create-new__sidebar-title" id="option-project">Project</h3>
-                    <!-- <h3 class="create-new__sidebar-title">Notes</h3> -->
                 </div>
 
                 <div class="create-new__entry">
-                    <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="30" name="title" required>
+                    <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="20" name="title" required>
                     <textarea class="create-new__entry-input-big input" placeholder="Description" name="description" required></textarea>
                     <div class="create-new__date">
                         <span class="create-new__date-title">Due Date:</span>
@@ -62,11 +61,11 @@
                     <div class="create-new__priority">
                         <span class="create-new__priority-title">Priority:</span>
                         <div class="create-new__priority-btns">
-                            <input type="radio" name="priority" class="priority-btn input" id="low" value="Low" required>
+                            <input type="radio" name="priority" class="priority-btn input" id="low" value=0 required>
                             <label for="low">Low</label>
-                            <input type="radio" name="priority" class="priority-btn input" id="medium" value="Medium" required>
+                            <input type="radio" name="priority" class="priority-btn input" id="medium" value=1 required>
                             <label for="medium">Medium</label>
-                            <input type="radio" name="priority" class="priority-btn input" id="high" value="High" required>
+                            <input type="radio" name="priority" class="priority-btn input" id="high" value=2 required>
                             <label for="high">High</label>
                         </div>
                     </div>
@@ -80,10 +79,27 @@
         <div class="pop-up-details">
             <button class="pop-up-close-button">X</button>
             <h1 class="pop-up-title element"></h1>
-            <p class="pop-up-project element"></p>
-            <p class="pop-up-description element"></p>
-            <p class="pop-up-duedate element"></p>
-            <p class="pop-up-priority element"></p>
+
+            <div class="detail-element">
+                <p class="pop-up-project element"></p>
+                <span class="content-project element"></span>
+            </div>
+
+            <div class="detail-element">
+                <p class="pop-up-description element"></p>
+                <span class="content-description element"></span>
+            </div>
+
+            <div class="detail-element">
+                <p class="pop-up-duedate element"></p>
+                <span class="content-duedate element"></span>
+            </div>
+
+            <div class="detail-element">
+                <p class="pop-up-priority element"></p>
+                <span class="content-priority element"></span>
+            </div>
+
         </div>
     </div>
 
@@ -99,12 +115,12 @@
             <div class="edit-todo__priority">
                 <span class="edit-todo__priority-title">Priority:</span>
                 <div class="edit-todo__priority-btns">
-                    <input type="radio" name="priority" class="priority-btn input" id="low" value="Low" required>
-                    <label for="low">Low</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="medium" value="Medium" required>
-                    <label for="medium">Medium</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="high" value="High" required>
-                    <label for="high">High</label>
+                    <input type="radio" name="priority" class="priority-btn input" id="low-1" value=0 required>
+                    <label for="low-1">Low</label>
+                    <input type="radio" name="priority" class="priority-btn input" id="medium-1" value=1 required>
+                    <label for="medium-1">Medium</label>
+                    <input type="radio" name="priority" class="priority-btn input" id="high-1" value=2 required>
+                    <label for="high-1">High</label>
                 </div>
             </div>
             <button class="confirm-edit-btn" type="submit">Edit</button>
