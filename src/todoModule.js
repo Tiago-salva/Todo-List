@@ -15,15 +15,16 @@ export const todoModule = {
     addTodo: function(todo) {
         const projectTaskArraySelected = projectModule.getProjectTaskArraySelected();
         projectTaskArraySelected.push(todo);
-    
+        storageModule.guardarProyectos();
     },
 
     removeTodo: function(index) {
         const projectTaskArraySelected = projectModule.getProjectTaskArraySelected();
         projectTaskArraySelected.splice(index, 1);
+        storageModule.guardarProyectos();
     },
 
-    editTodo: function(obj, newTitle, newDescription, newDueDate, newPriority, newCheckStatus) {
+    editTodo: function(obj, newTitle, newDescription, newDueDate, newPriority) {
         obj.title = newTitle;
         obj.description = newDescription;
         obj.dueDate = newDueDate;
@@ -44,11 +45,13 @@ export const projectModule = {
     projects: [ new Project("Home") ],
 
     addProject: function(project) {
-        this.projects.push(project)
+        this.projects.push(project);
+        storageModule.guardarProyectos();
     },
 
     removeProject: function(index) {
         this.projects.splice(index, 1);
+        storageModule.guardarProyectos();
     },
 
     getProjectSelected: function() {
@@ -70,6 +73,23 @@ export const projectModule = {
         return projectTaskArraySelected.sort((a, b) => b.priority - a.priority);
     }
 };
+
+export const storageModule = {
+    guardarProyectos: () => {
+        localStorage.setItem('proyectos', JSON.stringify(projectModule.projects));
+    },
+    
+    cargarProyectos: () => {
+        const proyectosGuardados = JSON.parse(localStorage.getItem('proyectos'));
+        if (proyectosGuardados) {
+            projectModule.projects = proyectosGuardados.map(proj => {
+                const proyecto = new Project(proj.title);
+                proyecto.taskArray = proj.taskArray.map(t => new Todo(t.title, t.description, t.dueDate, t.priority, t.checkStatus));
+                return proyecto;
+            });
+        }
+    }
+}; 
 
 export const todoCreationModule = {
     createFromForm: () => {
@@ -136,6 +156,8 @@ export const eventModule = {
             // Change the status of the todo
             projectTaskArraySelected[indexToCheck].checkStatus =
             checkStatus === "not-checked" ? "checked" : "not-checked";
+
+            storageModule.guardarProyectos();
         }
     },
 
@@ -220,6 +242,15 @@ export const eventModule = {
 
         const overlayEdit = document.querySelector(".overlay-edit");
         overlayEdit.classList.add("overlay-edit-displayed");
+
+        const projectTaskArraySelected = projectModule.getProjectTaskArraySelected();
+        let todoElement = projectTaskArraySelected[indexToEdit];
+
+        document.querySelector(".edit-todo-input").textContent = todoElement.title;
+        console.log(todoElement.title);
+        document.querySelector(".edit-todo-input-big").textContent = todoElement.description;
+        // const inputDate = document.querySelector(".edit-todo__date-input").textContent = todoElement.dueDate;
+
         const editTodoCloseBtn = document.querySelector(".edit-todo-close-button");
         editTodoCloseBtn.addEventListener("click", () => {
             overlayEdit.classList.remove("overlay-edit-displayed");
@@ -237,7 +268,8 @@ export const eventModule = {
         // Get the values of the edit form, and edit the todo
         const formData = new FormData(editForm);
         todoElement = todoModule.editTodo(todoElement, formData.get('title'), formData.get('description'), formData.get('dueDate'), formData.get('priority'));
-        overlayEdit.classList.remove("overlay-edit-displayed");
+        overlayEdit.classList.remove("overlay-edit-displayed");        
+        storageModule.guardarProyectos();
     },
 
     // EventListener for the delete button

@@ -28,16 +28,7 @@
         <button id="create-btn">+</button>
     </div>
 
-    <div class="todo-container">
-        <div class="todo">
-            <div class="todo-priority"></div>
-            <button class="todo-status-checkbox"></button>
-            <h3 class="todo-title">Homework</h3>
-            <button class="todo-detail-button">Details</button>
-            <button class="todo-edit-button"></button>
-            <button class="todo-delete-button"></button>
-        </div>
-    </div>
+    <div class="todo-container"></div>
 
     <div class="overlay-new">
         <form class="create-new" method="get">
@@ -106,7 +97,7 @@
     <div class="overlay-edit">
         <form class="edit-todo" method="get">
             <button class="edit-todo-close-button" type="button">X</button>
-            <input type="text" class="edit-todo-input input" placeholder="Name" maxlength="30" name="title" required>
+            <input type="text" class="edit-todo-input input" placeholder="Name" maxlength="20" name="title" required>
             <textarea class="edit-todo-input-big input" placeholder="Description" name="description" required></textarea>
             <div class="edit-todo__date">
                 <span class="edit-todo__date-title">Due Date:</span>

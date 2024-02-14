@@ -26,6 +26,7 @@ export const domModule = {
 
         event.currentTarget.classList.add("project-selected");
 
+        centralModule.storageModule.guardarProyectos();
         const projectTaskArraySelected = centralModule.projectModule.sortTodos();
         domModule.displayTodos(projectTaskArraySelected);
         centralModule.eventModule.assisgnEventsToButtons();
@@ -53,13 +54,13 @@ export const domModule = {
 
         function createProjectForm() {
             createNewEntry.innerHTML = `
-            <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="30" name="title" required>
+            <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="20" name="title" required>
             <button class="create-project-btn" type="submit">Create project</button>`;
         }
 
         function createTodoForm() {
             createNewEntry.innerHTML = `
-            <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="30" name="title" required>
+            <input type="text" class="create-new__entry-input input" placeholder="Name" maxlength="20" name="title" required>
             <textarea class="create-new__entry-input-big input" placeholder="Description" name="description" required></textarea>
             <div class="create-new__date">
                 <span class="create-new__date-title">Due Date:</span>
@@ -226,11 +227,12 @@ export const domModule = {
         array.forEach((obj, index) => {
             // If the project selected it's not the home item, display the rest of the projects
             if(index !== 0) {
-                homeItem.classList.remove("project-selected");
+                // homeItem.classList.remove("project-selected");
                 
                 const project = document.createElement("li");
                 project.dataset.index = index;
-                project.classList.add("project", "nav-item", (index === array.length - 1) && "project-selected");
+                // project.classList.add("project", "nav-item", (index === array.length - 1) && "project-selected");
+                project.classList.add("project", "nav-item", (index === array.length - 1));
 
                 const projectName = document.createElement("span");
                 projectName.textContent = obj.title;
