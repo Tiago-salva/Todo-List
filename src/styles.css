@@ -17,7 +17,7 @@
 
 body {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* Universal */
@@ -83,7 +83,7 @@ form {
     grid-template-areas: 
     "header header"
     "sidebar main";
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
