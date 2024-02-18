@@ -323,6 +323,7 @@ form {
     opacity: 0;
     display: flex;
     position: absolute;
+    top: 0;
     justify-content: center;
     align-items: center;
     background-color: rgb(103 117 149 / 50%);
@@ -440,6 +441,8 @@ form {
     border: none;
     border-radius: 5px;
     background-color: var(--grey);
+    position: absolute;
+    bottom: 20px;
 }
 
 /* Overlay that display the details of a todo */
@@ -450,6 +453,7 @@ form {
     opacity: 0;
     display: flex;
     position: absolute;
+    top: 0;
     justify-content: center;
     align-items: center;
     background-color: rgb(103 117 149 / 50%);
@@ -515,6 +519,7 @@ form {
     opacity: 0;
     display: flex;
     position: absolute;
+    top: 0;
     justify-content: center;
     align-items: center;
     background-color: rgb(103 117 149 / 50%);
@@ -785,11 +790,6 @@ form {
 
     .add-todo-btn {
         left: 20px;
-    }
-
-    .create-project-btn {
-        position: absolute;
-        bottom: 20px;
     }
 
     .pop-up-details {
