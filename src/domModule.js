@@ -246,4 +246,19 @@ export const domModule = {
             }
         })
     },
+
+    createEventHamburger: function() {
+        const menuBtn = document.querySelector(".menu-btn");
+        const firstLine = document.querySelector(".first-line");
+        const secondLine = document.querySelector(".second-line");
+        const thirdLine = document.querySelector(".third-line");
+        const sidebar = document.querySelector(".sidebar");
+    
+        menuBtn.addEventListener("click", () => {
+            firstLine.classList.toggle("first-line-displayed");
+            secondLine.classList.toggle("second-line-displayed");
+            thirdLine.classList.toggle("third-line-displayed");
+            sidebar.classList.toggle("sidebar-displayed");
+        })
+    }
 }

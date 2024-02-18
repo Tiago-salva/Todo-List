@@ -10,6 +10,7 @@ centralModule.eventModule = eventModule;
 
 // When the page inits, it creates all the event listeners, load and display the projects and todos
 document.addEventListener("DOMContentLoaded", () => {
+    domModule.createEventHamburger();
     domModule.displayOverlay();
     storageModule.cargarProyectos();
     domModule.displayProjects(projectModule.projects);
