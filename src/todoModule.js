@@ -211,7 +211,14 @@ export const eventModule = {
         const popUpDueDate = document.querySelector(".pop-up-duedate");
         const popUpDueDateSpan = document.querySelector(".content-duedate");
 
-        const formatedData = format(todoElement.dueDate, "MMMM do, yyyy");
+        const dateString = todoElement.dueDate;
+        const dateParts = dateString.split('-'); // Divide the string in [year, month, day]
+
+        // Reduce 1 to the month because the months in Date are 0
+        const localDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+
+        // Fromat the date
+        const formatedData = format(localDate, "MMMM do, yyyy");
 
         popUpDueDate.textContent = "Due date:";
         popUpDueDateSpan.textContent = formatedData;
@@ -246,10 +253,12 @@ export const eventModule = {
         const projectTaskArraySelected = projectModule.getProjectTaskArraySelected();
         let todoElement = projectTaskArraySelected[indexToEdit];
 
-        document.querySelector(".edit-todo-input").textContent = todoElement.title;
-        console.log(todoElement.title);
-        document.querySelector(".edit-todo-input-big").textContent = todoElement.description;
-        // const inputDate = document.querySelector(".edit-todo__date-input").textContent = todoElement.dueDate;
+        // Show in the editForm inputs the actual values of the todoElement
+        document.querySelector(".edit-todo-input").value = todoElement.title;
+        document.querySelector(".edit-todo-input-big").value = todoElement.description;
+        document.querySelector(".edit-todo__date-input").value = todoElement.dueDate;
+        // Depending of what radio element was selected it get the element by the position and checked it
+        document.querySelector(`.edit-todo__priority-btns input[type="radio"]:nth-of-type(${todoElement.priority})`).checked = "true";
 
         const editTodoCloseBtn = document.querySelector(".edit-todo-close-button");
         editTodoCloseBtn.addEventListener("click", () => {

@@ -69,11 +69,11 @@ export const domModule = {
             <div class="create-new__priority">
                 <span class="create-new__priority-title">Priority:</span>
                 <div class="create-new__priority-btns">
-                    <input type="radio" name="priority" class="priority-btn input" id="low" value=0 required>
+                    <input type="radio" name="priority" class="priority-btn input" id="low" value=1 required>
                     <label for="low">Low</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="medium" value=1 required>
+                    <input type="radio" name="priority" class="priority-btn input" id="medium" value=2 required>
                     <label for="medium">Medium</label>
-                    <input type="radio" name="priority" class="priority-btn input" id="high" value=2 required>
+                    <input type="radio" name="priority" class="priority-btn input" id="high" value=3 required>
                     <label for="high">High</label>
                 </div>
             </div>
@@ -159,7 +159,7 @@ export const domModule = {
             // Depending on the priority of the todo, change the color of it
             const todoPriority = document.createElement("div");
             todoPriority.classList.add("todo-priority");
-            todoPriority.style.backgroundColor = priorityColors[obj.priority];
+            todoPriority.style.backgroundColor = priorityColors[obj.priority - 1];
             todo.appendChild(todoPriority);
 
             // Todo Status
@@ -247,6 +247,7 @@ export const domModule = {
         })
     },
 
+    // It creates the event to display the sidebar when the widtg is 750px or less
     createEventHamburger: function() {
         const menuBtn = document.querySelector(".menu-btn");
         const firstLine = document.querySelector(".first-line");
